@@ -1,8 +1,11 @@
 # Clash订阅合并工具
 
 ## 项目简介
+本项目采用 Vibe Coding 模式开发——核心逻辑全靠 AI，代码产出全凭氛围。
 
-本项目是 **Clash Party 覆写功能** 专用工具，用于生成 Clash 覆写配置文件。
+本工具专为 Clash Party 覆写功能量身定制，旨在快速生成配置文件。
+
+避坑指南： 作者是一位有着 14 年经验的 Java 后端老兵，对 Python 的理解仅限于“能跑”。如果您在使用中遇到 Bug 或想提 Issue，建议直接 Fork 一份，让您的 AI 助教帮您改改——毕竟，代码是 AI 写的，它更懂它自己。
 
 ### 背景说明
 
@@ -308,7 +311,3 @@ self.output_file = self.output_dir / "你的文件名.yaml"
 ## 许可证
 
 本项目基于 MIT 许可证开源。
-
-## 贡献指南
-
-欢迎提交 Issue 和 Pull Request！
