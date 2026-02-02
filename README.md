@@ -2,7 +2,23 @@
 
 ## 项目简介
 
-Clash Subscription Merger 是一个用 Python 编写的 Clash 订阅合并工具，用于从多个订阅源下载配置文件，合并代理节点，生成统一的 Clash 配置文件。
+本项目是 **Clash Party 覆写功能** 专用工具，用于生成 Clash 覆写配置文件。
+
+### 背景说明
+
+在 Clash Party 中使用覆写功能时，通过 Sub-Store 方式组合多个订阅后，生成的配置只包含 `proxies` 配置，没有分流规则。本工具的作用是：
+
+1. 从多个订阅源下载并合并代理节点
+2. 生成**不含 `proxies:` 的覆写配置文件**
+3. 用于 Clash Party 的覆写功能中，实现代理节点的快速合并
+
+### 使用场景
+
+```
+Sub-Store 组合订阅 → [本工具处理] → 覆写配置文件 → Clash Party 覆写功能
+```
+
+生成的覆写文件可直接导入 Clash Party 的覆写功能，无需手动合并节点。
 
 ## 功能特性
 
@@ -10,13 +26,8 @@ Clash Subscription Merger 是一个用 Python 编写的 Clash 订阅合并工具
 - **智能合并**：自动提取并合并所有订阅中的代理节点
 - **Base64 解码**：支持自动解码 Base64 编码的订阅内容
 - **URI 格式解析**：支持解析 trojan://、ss://、vless://、vmess:// 等多种 URI 格式
+- **覆写专用输出**：生成仅含代理组和规则的覆写配置（不生成 `proxies:` 配置段）
 - **格式转换**：将多行 YAML 格式转换为紧凑的 JSON 单行格式
-- **完整规则集**：内置完整的 Clash 分流规则，包括：
-  - Apple 基础规则和 CDN 直连规则
-  - 中国大陆网站直连规则
-  - 常用代理规则
-  - 广告拦截规则
-  - Telegram IP 段规则
 - **灵活配置**：支持自定义配置和输出路径
 - **日志记录**：详细的运行日志便于调试
 
@@ -212,30 +223,10 @@ tqdm>=4.64.0     # 进度条显示
 
 ### 文件结构
 
-生成的配置文件包含以下部分：
+生成的覆写配置文件包含以下部分（**不包含 `proxies:` 配置段**）：
 
 ```yaml
-mixed-port: 7890
-allow-lan: true
-bind-address: '*'
-mode: rule
-log-level: info
-external-controller: '127.0.0.1:9090'
-dns:
-  enable: true
-  ipv6: false
-  default-nameserver: [223.5.5.5, 119.29.29.29]
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
-  use-hosts: true
-  nameserver: [...]
-  fallback: [...]
-  fallback-filter: {...}
 proxy-groups:
-  - {...}
-  - {...}
-  - {...}
-proxies:
   - {...}
   - {...}
   - {...}
@@ -244,6 +235,18 @@ rules:
   - {...}
   ...
 ```
+
+### 与普通 Clash 配置的区别
+
+| 配置段 | 普通配置文件 | 本工具输出（覆写配置） |
+|--------|-------------|----------------------|
+| `proxy-groups` | ✅ 包含 | ✅ 包含 |
+| `proxies` | ✅ 包含 | ❌ **不包含** |
+| `rules` | ✅ 包含 | ✅ 包含 |
+| `dns` | ✅ 包含 | ❌ 不包含 |
+| `mixed-port` | ✅ 包含 | ❌ 不包含 |
+
+覆写配置仅包含 `proxy-groups` 和 `rules` 部分，用于覆写到已有的完整配置中。
 
 ### 代理组说明
 
