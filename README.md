@@ -81,19 +81,19 @@ clash-party-merged-overwrite-pub/
 cd clash-party-merged-overwrite-pub
 
 # 创建Python虚拟环境
-python3 -m venv venv
+python3 -m venv .venv 
 ```
 
 ### 2. 激活虚拟环境
 
 **macOS/Linux：**
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 **Windows：**
 ```bash
-venv\Scripts\activate
+.venv\Scripts\activate
 ```
 
 ### 3. 安装依赖
@@ -141,9 +141,9 @@ subscription2.yaml|https://example.com/subscribe2
 
 ```bash
 # 激活虚拟环境
-source venv/bin/activate  # macOS/Linux
+source .venv/bin/activate  # macOS/Linux
 # 或
-venv\Scripts\activate     # Windows
+.venv\Scripts\activate     # Windows
 
 # 运行程序
 python clash_subscription_merger.py
@@ -261,7 +261,7 @@ rules:
 **问：如何删除虚拟环境？**
 ```bash
 deactivate
-rm -rf venv  # 删除虚拟环境目录
+rm -rf .venv  # 删除虚拟环境目录
 ```
 
 ### 2. 订阅下载相关
