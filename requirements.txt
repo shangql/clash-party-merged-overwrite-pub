@@ -1,0 +1,10 @@
+# Clash Subscription Merger - Python Dependencies
+
+# Core dependencies
+pyyaml>=6.0
+requests>=2.28.0
+
+# Optional dependencies for enhanced functionality
+# (uncomment if needed)
+# colorlog>=6.7.0  # For colored console output
+# tqdm>=4.64.0     # For progress bars
